@@ -7,11 +7,11 @@ RUN apt-get install -y ipppd expect wget net-tools iproute iptables ssh curl pol
 WORKDIR /root
 
 # Install fortivpn client unofficial .deb
-RUN wget 'https://chillrain.com/download/forticlient-sslvpn_4.4.2332-1_amd64.deb' -O forticlient-sslvpn_amd64.deb
+RUN wget 'https://hadler.me/files/forticlient-sslvpn_4.4.2332-1_amd64.deb' -O forticlient-sslvpn_amd64.deb
 RUN dpkg -x forticlient-sslvpn_amd64.deb /usr/share/forticlient
 
 # Install SS5
-RUN wget -O ss5.tar.gz "https://chillrain.com/download/ss5-3.8.9-8.tar.gz"
+RUN wget -O ss5.tar.gz "http://downloads.sourceforge.net/project/ss5/ss5/3.8.9-8/ss5-3.8.9-8.tar.gz"
 
 RUN groupadd -r ss5 && useradd -r -g ss5 ss5 && \
   mkdir -p /usr/src/ss5 \
@@ -33,7 +33,7 @@ RUN groupadd -r ss5 && useradd -r -g ss5 ss5 && \
 RUN rm -rf /var/lib/apt/lists/*
 
 # Run setup
-RUN /usr/share/forticlient/opt/forticlient-sslvpn/64bit/helper/setup.linux.sh 2
+RUN /usr/share/forticlient/opt/forticlient-sslvpn/64bit/helper/setup 2
 
 # Copy runfiles
 COPY forticlient /usr/bin/forticlient

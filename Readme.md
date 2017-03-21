@@ -8,6 +8,23 @@ The container uses the forticlientsslvpn_cli linux binary to manage ppp interfac
 
 All of the container traffic is routed through the VPN, so you can in turn route host traffic through the container to access remote subnets.
 
+### Only Proxy
+
+```bash
+# Start the priviledged docker container on its host network
+docker run -it --rm \
+  --privileged \
+  -e VPNADDR=host:port \
+  -e VPNUSER=me@domain \
+  -e VPNPASS=secret \
+  -p 1080:11080 \
+  -p 8123:18123 \
+  -e VPNTOKEN=token \
+  henry42/forticlient
+```
+
+Docker will start two proxies, 1080 for socks5 and 8123 for http.
+
 ### Linux
 
 ```bash
@@ -22,7 +39,7 @@ docker run -it --rm \
   -e VPNUSER=me@domain \
   -e VPNPASS=secret \
   -e VPNTOKEN=token \
-  deanf/forticlient
+  henry42/forticlient
 
 # Add route for you remote subnet (ex. 10.201.0.0/16)
 ip route add 10.201.0.0/16 via 172.20.0.2
@@ -31,7 +48,7 @@ ip route add 10.201.0.0/16 via 172.20.0.2
 ssh 10.201.8.1
 ```
 
-### OSX
+### OSX ( Outdated, u can try to follow the linux )
 
 Docker Beta's kernel lasks ppp interface support, so you'll need to use a docker-machine VM
 
@@ -40,7 +57,7 @@ Docker Beta's kernel lasks ppp interface support, so you'll need to use a docker
 docker-machine create fortinet --driver virtualbox
 eval $(docker-machine env fortinet)
 
-# Start the priviledged docker container on its host network
+# Start the priviledged docker container
 docker run -it --rm \
   --privileged --net host \
   -e VPNADDR=host:port \
@@ -70,4 +87,4 @@ Thanks to [https://hadler.me](https://hadler.me/linux/forticlient-sslvpn-deb-pac
 
 
 ### Thanks
-[AuchanDirect](https://github.com/AuchanDirect/docker-forticlient) for the base image.
+[AuchanDirect](https://github.com/AuchanDirect/docker-forticlient)  [DeanF](https://github.com/DeanF/docker-forticlient) for the base image.
