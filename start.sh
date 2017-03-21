@@ -15,7 +15,7 @@ echo "------------ SS5 Starts -------------"
 ss5 -t -u ss5 &
 
 echo "------------ polipo Starts ---------"
-/usr/bin/polipo -- socksParentProxy="127.0.0.1:1080" &
+/usr/bin/polipo -- socksParentProxy="127.0.0.1:1080" proxyAddress="0.0.0.0" &
 
 echo "------------ VPN Starts ------------"
 /usr/bin/forticlient
