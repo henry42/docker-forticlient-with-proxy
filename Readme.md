@@ -1,4 +1,4 @@
-# forticlient
+# Forticlient VPN
 
 Connect to a FortiNet VPNs through docker
 
@@ -17,10 +17,10 @@ docker run -it --rm \
   -e VPNADDR=host:port \
   -e VPNUSER=me@domain \
   -e VPNPASS=secret \
-  -p 1080:11080 \
-  -p 8123:18123 \
+  -p 11080:1080 \
+  -p 18123:8123 \
   -e VPNTOKEN=token \
-  henry42/forticlient
+  henry42/forticlient-with-proxy
 ```
 
 Docker will start two proxies, 1080 for socks5 and 8123 for http.
@@ -39,7 +39,7 @@ docker run -it --rm \
   -e VPNUSER=me@domain \
   -e VPNPASS=secret \
   -e VPNTOKEN=token \
-  henry42/forticlient
+  henry42/forticlient-with-proxy
 
 # Add route for you remote subnet (ex. 10.201.0.0/16)
 ip route add 10.201.0.0/16 via 172.20.0.2
@@ -48,7 +48,7 @@ ip route add 10.201.0.0/16 via 172.20.0.2
 ssh 10.201.8.1
 ```
 
-### OSX ( Outdated, u can try to follow the linux )
+### OSX ( Outdated )
 
 Docker Beta's kernel lasks ppp interface support, so you'll need to use a docker-machine VM
 
