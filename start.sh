@@ -11,6 +11,9 @@ for iface in $(ip a | grep eth | grep inet | awk '{print $2}'); do
   iptables -t nat -A POSTROUTING -s "$iface" -j MASQUERADE
 done
 
+echo "------------ Mknode PPP ------------"
+mknod /dev/ppp c 108 0
+
 echo "------------ SS5 Starts -------------"
 ss5 -t -u ss5 &
 
